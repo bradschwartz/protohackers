@@ -3,6 +3,8 @@ use std::{
     net::{TcpListener, TcpStream},
 };
 
+/// Accepts TcpStream and echos back all content until connection is closed
+/// Protohackers: Solution 0
 fn handle_connection(mut stream: TcpStream) -> std::result::Result<(), std::io::Error> {
     let mut buffer = [0; 10000];
     loop {
