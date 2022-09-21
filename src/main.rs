@@ -16,7 +16,7 @@ fn handle_connection(mut stream: TcpStream) -> std::result::Result<(), std::io::
     }
 }
 fn main() -> std::io::Result<()> {
-    const BIND: &str = "127.0.0.1:8080";
+    const BIND: &str = "0.0.0.0:8080";
     let listener = TcpListener::bind(BIND).unwrap();
     println!("TCP Listener bound on {}. Listening...", BIND);
 
