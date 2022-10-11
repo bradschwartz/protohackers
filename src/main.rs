@@ -1,5 +1,5 @@
 use std::{
-    io::{Read, Write},
+    io::{ErrorKind, Read, Write},
     net::{TcpListener, TcpStream},
 };
 
@@ -17,7 +17,8 @@ fn handle_connection(mut stream: TcpStream) -> std::result::Result<(), std::io::
         buffer = [0; 10000];
     }
 }
-fn main() -> std::io::Result<()> {
+
+fn problem0() -> std::result::Result<(), std::io::Error> {
     const BIND: &str = "0.0.0.0:8080";
     let listener = TcpListener::bind(BIND).unwrap();
     println!("TCP Listener bound on {}. Listening...", BIND);
@@ -30,9 +31,20 @@ fn main() -> std::io::Result<()> {
                 println!("Handled stream successfully!");
             }
             Err(err) => {
-                format!("Failed to handle stream: {}", err);
+                println!("{}", format!("Failed to handle stream: {}", err));
             }
         }
     }
     Ok(())
+}
+
+fn main() -> std::io::Result<()> {
+    let args: Vec<String> = std::env::args().collect();
+    match args[1].as_str() {
+        "0" => problem0(),
+        _ => Err(std::io::Error::new(
+            ErrorKind::Other,
+            format!("Unknown protohackers problem: {}", args[0]),
+        )),
+    }
 }
