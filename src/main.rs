@@ -38,10 +38,21 @@ fn problem0() -> std::result::Result<(), std::io::Error> {
     Ok(())
 }
 
+fn problem1() -> std::io::Result<()> {
+    const BIND: &str = "0.0.0.0:8081";
+    let listener = TcpListener::bind(BIND).unwrap();
+    println!("TCP Listener bound on {}. Listening...", BIND);
+    for _ in listener.incoming() {
+
+    }
+    Ok(())
+}
+
 fn main() -> std::io::Result<()> {
     let args: Vec<String> = std::env::args().collect();
     match args[1].as_str() {
         "0" => problem0(),
+        "1" => problem1(),
         _ => Err(std::io::Error::new(
             ErrorKind::Other,
             format!("Unknown protohackers problem: {}", args[0]),
